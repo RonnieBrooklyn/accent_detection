@@ -15,14 +15,36 @@ a small plastic snake and a big toy frog for the kids. She can scoop these thing
 bags, and we will go meet her Wednesday at the train station.'
 ```
 
-####Repo Details
+#### Repo Details
 -root
+
 --research
+
 ---streamlit
+
 ---notebooks
+
 ---references
+
 --accent_detection
+
+----requirements.txt
+
 ---server
+(flask server and any front end assets)
+
+----assets
+(templates, css, ...)
+
+----handlers 
+(front end handlers)
+
+----configs 
+(any config files) 
+
 ---models
+(ml model files)
+
 ---lib
+(audio processing....)
 
