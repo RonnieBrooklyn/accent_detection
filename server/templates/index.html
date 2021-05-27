@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Learning API</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+</head>
+
+<body>
+ <div class="container">
+	<h1>Predict Profit</h1>
+  
+  <h2>This app let's classify english accents</h2>
+  <h4>Either select an option from one of the below available audio files or record your own audio</h4>
+  <br>
+  <h5>American Accent</h5>
+  <audio controls>
+    <source src="../static/english33.wav" type="audio/wav">  
+
+    Your browser does not support the audio element.
+    </audio>
+   <br>
+
+  <h5>British Accent</h5>
+
+    <audio controls>
+
+      <source src="../static/english38.wav" type="audio/wav"> 
+
+      Your browser does not support the audio element.
+      </audio>
+   <br>
+
+  <h5>Australian Accent</h5>
+
+      <audio controls>
+
+        <source src="../static/english77.wav" type="audio/wav"> 
+        Your browser does not support the audio element.
+        </audio>
+   <br>
+   <br>
+   <br>
+
+   <form action="{{ url_for('predict')}}"method="POST">
+    <input type="radio" id="american" name="accent" value="american">
+    <label for="american">American</label><br>
+    <input type="radio" id="british" name="accent" value="british">
+    <label for="british">British</label><br>
+    <input type="radio" id="australian" name="accent" value="australian">
+    <label for="australian">Australian</label>
+   <br>
+
+    <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+  </form>
+
+  <br>
+
+   {{ prediction_text }}
+
+ </div>
+
+
+ <!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -2,21 +2,21 @@ import pandas as pd
 from collections import Counter
 import sys
 sys.path.append('../speech-accent-recognition/src>')
-import getsplit
+# import getsplit
 
 from keras import utils
 import accuracy
 import multiprocessing
 import librosa
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
+# from sklearn.model_selection import train_test_split
+# from sklearn.preprocessing import MinMaxScaler
 
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Flatten
-from keras.layers.convolutional import MaxPooling2D, Conv2D
-from keras.preprocessing.image import ImageDataGenerator
-from keras.callbacks import EarlyStopping, TensorBoard
+# from keras.models import Sequential
+# from keras.layers.core import Dense, Dropout, Flatten
+# from keras.layers.convolutional import MaxPooling2D, Conv2D
+# from keras.preprocessing.image import ImageDataGenerator
+# from keras.callbacks import EarlyStopping, TensorBoard
 
 DEBUG = True
 SILENCE_THRESHOLD = .01
@@ -44,7 +44,7 @@ def get_wav(language_num):
     :return (numpy array): Down-sampled wav file
     '''
 
-    y, sr = librosa.load('../audio/{}.wav'.format(language_num))
+    y, sr = librosa.load('./static/{}.wav'.format(language_num))
     return(librosa.core.resample(y=y,orig_sr=sr,target_sr=RATE, scale=True))
 
 def to_mfcc(wav):
