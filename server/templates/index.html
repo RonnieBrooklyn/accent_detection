@@ -2,73 +2,126 @@
 <html >
 <!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>Machine Learning API</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
 </head>
 
 <body>
- <div class="container">
-	<h1>Predict Profit</h1>
-  
-  <h2>This app let's classify english accents</h2>
-  <h4>Either select an option from one of the below available audio files or record your own audio</h4>
-  <br>
-  <h5>American Accent</h5>
-  <audio controls>
-    <source src="../static/english33.wav" type="audio/wav">  
+  <div class="container center-block">
+    
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1>Predict Accent</h1>
+        
+        <h2>This app let's you classify English Accents</h2>
+        <h4>Either select an option from one of the below available audio files or record your own audio</h4>
+        <br>
 
-    Your browser does not support the audio element.
-    </audio>
-   <br>
+        <div class="section1">
+          <h3>Select a prerecorded audio</h3>
+          <br>
+          <h5>American Accent</h5>
+          <audio controls>
+            <source src="../static/english33.wav" type="audio/wav">  
 
-  <h5>British Accent</h5>
+            Your browser does not support the audio element.
+            </audio>
+          <br>
 
-    <audio controls>
+          <h5>British Accent</h5>
 
-      <source src="../static/english38.wav" type="audio/wav"> 
+            <audio controls>
 
-      Your browser does not support the audio element.
-      </audio>
-   <br>
+              <source src="../static/english38.wav" type="audio/wav"> 
 
-  <h5>Australian Accent</h5>
+              Your browser does not support the audio element.
+              </audio>
+          <br>
 
-      <audio controls>
+          <h5>Australian Accent</h5>
 
-        <source src="../static/english77.wav" type="audio/wav"> 
-        Your browser does not support the audio element.
-        </audio>
-   <br>
-   <br>
-   <br>
+              <audio controls>
 
-   <form action="{{ url_for('predict')}}"method="POST">
-    <input type="radio" id="american" name="accent" value="american">
-    <label for="american">American</label><br>
-    <input type="radio" id="british" name="accent" value="british">
-    <label for="british">British</label><br>
-    <input type="radio" id="australian" name="accent" value="australian">
-    <label for="australian">Australian</label>
-   <br>
+                <source src="../static/english77.wav" type="audio/wav"> 
+                Your browser does not support the audio element.
+                </audio>
+          <br>
+          <br>
 
-    <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-  </form>
+
+
+          <br>
+          <h4>Predict with local tensorflow installation</h4>
+
+          <form action="{{ url_for('predict')}}"method="POST">
+            <input type="radio" id="american" name="accent" value="american">
+            <label for="american">American</label><br>
+            <input type="radio" id="british" name="accent" value="british">
+            <label for="british">British</label><br>
+            <input type="radio" id="australian" name="accent" value="australian">
+            <label for="australian">Australian</label>
+          <br>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+          </form>
+
+          <br>
+
+          <h4>Predict with GCP model</h4>
+
+          <form action="{{ url_for('cloud_predict')}}" method="POST">
+            <input type="radio" id="american" name="accent" value="american">
+            <label for="american">American</label><br>
+            <input type="radio" id="british" name="accent" value="british">
+            <label for="british">British</label><br>
+            <input type="radio" id="australian" name="accent" value="australian">
+            <label for="australian">Australian</label>
+          <br>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+          </form>
+        </div>
+
+        <div class="section2">
+          <h3>Record your own voice</h3>
+          <br>
+          <h5>Please read the following text paragraph:</h5>
+          <p>Please call Stella.  Ask her to bring these things with her from the store:  Six spoons of fresh snow peas, five thick slabs of blue cheese, and maybe a snack for her brother Bob.  We also need a small plastic snake and a big toy frog for the kids.  She can scoop these things into three red bags, and we will go meet her Wednesday at the train station.</p>
+          <br>
+          <div id="controls">
+            <button id="recordButton">Record</button>
+            <button id="pauseButton" disabled>Pause</button>
+            <button id="stopButton" disabled>Stop</button>
+           </div>
+           <div id="formats">Format: start recording to see sample rate</div>
+           <p><strong>Recordings:</strong></p>
+            <!-- <form action="{{ url_for('predict_recording')}}" method="POST"></form> -->
+              <ul id="recordingsList" class="list-unstyled"></ul>
+            <!-- </form> -->
+        </div>
+      </div>
+    </div>
 
   <br>
 
    {{ prediction_text }}
 
- </div>
+  </div>
 
 
- <!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+  <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+  <script src="/static/js/app.js"></script>
 </body>
 </html>
